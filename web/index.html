@@ -5,25 +5,55 @@
     
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+        <style>
+            
+            .console{
+                width : 60vw;
+            }
+        </style>
+
         <script type="text/javascript" src="/eel.js"></script>
 
         <!-- expose js functions to python -->
         <!-- python can call these functions -->
         <script type="text/javascript">
             function newSession(){
+                document.getElementById("newSessBtn").style.background = "yellow";
                 eel.initApp();
-                console.log("App Init")
+            }
+            function closeSession(){
+                document.getElementById("newSessBtn").style.background = "none";
+            }
+            function newPoint(){
+                document.getElementById("newPntBtn").style.background = "green";
+                eel.addPoint();
+            }
+
+            eel.expose(opEnd);
+            function opEnd(uResp){
+                // One sequence detection is finished
+                console.log(uResp)
+                document.getElementById("newPntBtn").style.background = "none";
             }
         </script>
         <!-- meta tags -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class="w3-bar w3-black">
-            <div class="w3-bar-item w3-button" onclick="newSession()">New Session</div>
-            <div class="w3-bar-item w3-button">Open Session</div>
-        </div>
+        <div class="w3-bar w3-black w3-center w3-padding-16">slideEZ</div>
 
         <!--The Display pad for Speech Input-->
+        <div class="w3-display-middle">
+            <div class="w3-card-4 console">
+                <div class="w3-bar w3-black w3-center"><div class="w3-text w3-padding">Console Panel</div></div>
+                <div class="w3-center w3-row w3-padding">
+                    <div class="w3-button w3-cols" id="newSessBtn" onclick="newSession()">New Session</div>
+                    <div class="w3-button w3-cols" id="cloSessBtn" onclick="closeSession()">Close Session</div>
+                </div>
+                <div class="w3-center w3-row w3-padding">
+                        <div class="w3-button w3-cols" id="newPntBtn" onclick="newPoint()">Add Point</div>
+                    </div>
+            </div>
+        </div>
     </body>
 </html>
