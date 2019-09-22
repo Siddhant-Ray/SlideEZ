@@ -9,13 +9,12 @@ def initApp():
 
 @eel.expose
 def closeApp():
-    print("Init Terminate Process")
+    print("close")
     import newdata
     newdata.get_result()
     import sys
-    eel.terminate()
     sys.exit()
-
+    
 @eel.expose
 def addPoint():
     uResponse = au.sysListen()

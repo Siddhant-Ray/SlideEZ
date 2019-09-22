@@ -1,5 +1,7 @@
 def fn(test):
-
+    
+    from deepsegment import DeepSegment
+    segmenter=DeepSegment('en')
     import textrazor
     textrazor.api_key = "043e170ef41a6d297a508581225bd493943f3a9f831345fb71f86d64"
 
@@ -22,12 +24,22 @@ def fn(test):
     for sentence in response.sentences():
         print(sentence.words)
         for word in sentence.words:
-            if word.lemma=="image":
+            if word.lemma=="image" or word.lemma=="picture" or word.lemma=="photo" or word.lemma=="show" or word.lemma=="see" or word.lemma=="display":
+                k=word.lemma
                 flag=True 
             l.append(word.lemma)
+    astring=""
+    for i in l:
+        astring+=i+" "
+
+    f=open("keyword.txt",'a')
+    f.write(astring+"\n")
+    f.close()
+    alist=segmenter.segment(astring)
+    print(alist)
 
     if(flag):
-        s=l.index("image")
+        s=l.index(k)
         m=l[s:]
     
         t=""
@@ -58,7 +70,6 @@ def fn(test):
     import cv2
     import os
     import time
-
 
     starttime=time.time();
     
@@ -125,8 +136,9 @@ def fn(test):
     
                 # build the path to the output image
                 ext = v["contentUrl"][v["contentUrl"].rfind("."):]
-                p = os.path.sep.join([r"C:/Users/HP/Desktop/Projects/VIT Hack/Master/VIT-Hack", "{}{}".format(
+                p = os.path.sep.join([r"C:\Users\HP\Desktop\Projects\VIT Hack\SlideEZ-test", "{}{}".format(
 				str(total).zfill(8), ext)])
+
                 print("The answer is")
                 print(p)
     
@@ -161,43 +173,93 @@ def fn(test):
 
     from pptx import Presentation
     from pptx.util import Inches, Pt 
+    from pptx.enum.text import PP_ALIGN
+    from PIL import Image
+    from pptx.dml.color import RGBColor
+    from pptx.enum.dml import MSO_THEME_COLOR
 
     presentation = "testppt3.pptx"
-    prs = Presentation(pptx=None)
-    title_slide_layout = prs.slide_layouts[0]
-    slide = prs.slides.add_slide(title_slide_layout)
-    title = slide.shapes.title
-    subtitle = slide.placeholders[1]
-    title.text = "Test"
-    subtitle.text = "test"
-    prs.save(presentation)
+    prs = Presentation(presentation)
+    if len(prs.slides)==0:
+        title_slide_layout = prs.slide_layouts[0]
+        slide = prs.slides.add_slide(title_slide_layout)
+        background=slide.background
+        fill=background.fill
+        fill.gradient()
+        fill.gradient_angle=40
+        gradient_stops=fill.gradient_stops
+        gradient_stop=gradient_stops[0]
+        color=gradient_stop.color
+        color.theme_color=MSO_THEME_COLOR.LIGHT_1
+        title = slide.shapes.title
+        subtitle = slide.placeholders[1]
+        title.text = "Test"
+        subtitle.text = "test"
+        prs.save(presentation)
     if not flag:
 
         text_slide_layout = prs.slide_layouts[1]
         slide = prs.slides.add_slide(text_slide_layout)
+        background=slide.background
+        fill=background.fill
+        fill.gradient()
+        fill.gradient_angle=40
+        gradient_stops=fill.gradient_stops
+        gradient_stop=gradient_stops[0]
+        color=gradient_stop.color
+        color.theme_color=MSO_THEME_COLOR.LIGHT_1
         title = slide.shapes.title
-        title.text= "Sub1"
+        blist=[]
+        for i in range(0,len(alist)):
+            blist+=alist[i].split(" ")
+
+        mx=0
+        slide_t=""
+        for j in blist:
+            if(len(j)>=mx):
+                mx=len(j)
+                slide_t=j.title()
+            
+        title.text= slide_t
         content = slide.shapes.placeholders[1]
         tf = content.text_frame
-        para=tf.add_paragraph()
-        para.text=text1
-        para.level=1
+        for i in alist:
+            para=tf.add_paragraph()
+            para.text=i
+            para.level=1
         prs.save(presentation)
     else:
 
-        image_slide_layout = prs.slide_layouts[3]
+        image_slide_layout = prs.slide_layouts[8]
         slide = prs.slides.add_slide(image_slide_layout)
-        title = slide.shapes.title
-        title.text="Sub2"
+        background=slide.background
+        fill=background.fill
+        fill.gradient()
+        fill.gradient_angle=40
+        gradient_stops=fill.gradient_stops
+        gradient_stop=gradient_stops[0]
+        color=gradient_stop.color
+        color.theme_color=MSO_THEME_COLOR.LIGHT_1
+        #title = slide.shapes.title
+        #title.text="Sub2"
         content = slide.shapes.placeholders[1]
+        im=Image.open(p)
+        width,height= im.size
+        content.height= height
+        content.width= width
+        content.insert_picture(p)
+        content = slide.shapes.placeholders[0]
         tf = content.text_frame
-        para=tf.add_paragraph()
-        para.text=t
-        para.level=1
-        left = Inches(6)
-        top = Inches(3)
-        height = Inches(2)
-        pic = slide.shapes.add_picture(p, left, top, height=height)
+        for i in alist:
+            
+            para=tf.add_paragraph()
+            para.text=i
+            para.level=1
+            para.alignment=PP_ALIGN.CENTER
+        #left = Inches(6)
+        #top = Inches(3)
+        #height = Inches(2)
+        #pic = slide.shapes.add_picture(p, left, top, height=height)
         prs.save(presentation)
 
 

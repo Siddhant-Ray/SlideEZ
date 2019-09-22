@@ -7,6 +7,8 @@ def get_result():
     from nltk.corpus import stopwords
     from nltk.stem.porter import PorterStemmer
     from nltk.tokenize import RegexpTokenizer
+    from urllib.request import urlretrieve
+    from urllib.parse import quote 
     
 
     nltk.download('wordnet')
@@ -138,13 +140,13 @@ def get_result():
         run=p.add_run()
         run.text = unigram[i]+"\n"
         run.level=1
-        run.hyperlink.address = 'https://github.com/scanny/python-pptx'
+        run.hyperlink.address = 'https://www.duckduckgo.com/?q='+unigram[i]
         
     p = text_frame.paragraphs[0]
     run=p.add_run()
     run.text = unigram[-1]
     run.level=1
-    run.hyperlink.address = 'https://github.com/scanny/python-pptx'
+    run.hyperlink.address = 'https://www.duckduckgo.com/?q='+unigram[-1]
     prs.save("testppt3.pptx")
-get_result()
+#get_result()
 
