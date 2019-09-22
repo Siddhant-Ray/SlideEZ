@@ -9,6 +9,14 @@
             
             .console{
                 width : 60vw;
+                height : 35vh;
+            }
+            html, body{
+                background: url("img/back1.png");
+                font-size: 1.2rem;
+            }
+            .top, .foot{
+                background: rgba(201, 126, 4, 70);
             }
         </style>
 
@@ -23,6 +31,7 @@
             }
             function closeSession(){
                 document.getElementById("newSessBtn").style.background = "none";
+                eel.closeApp();
             }
             function newPoint(){
                 document.getElementById("newPntBtn").style.background = "green";
@@ -35,25 +44,33 @@
                 console.log(uResp)
                 document.getElementById("newPntBtn").style.background = "none";
             }
+
+            eel.expose(terminate);
+            function terminate(){
+                window.close();
+            }
         </script>
         <!-- meta tags -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class="w3-bar w3-black w3-center w3-padding-16">slideEZ</div>
+        <div class="w3-bar w3-center top w3-padding-16 w3-xlarge w3-opacity-min" style="background: #c97e04;"><b>slideEZ</b></div>
 
         <!--The Display pad for Speech Input-->
-        <div class="w3-display-middle">
+        <div class="w3-display-middle w3-text-large">
             <div class="w3-card-4 console">
-                <div class="w3-bar w3-black w3-center"><div class="w3-text w3-padding">Console Panel</div></div>
-                <div class="w3-center w3-row w3-padding">
-                    <div class="w3-button w3-cols" id="newSessBtn" onclick="newSession()">New Session</div>
-                    <div class="w3-button w3-cols" id="cloSessBtn" onclick="closeSession()">Close Session</div>
+                <div class="w3-bar w3-opacity w3-center" style="background: #c97e04;"><div class="w3-text w3-padding w3-margin-bottom">Console Panel</div></div>
+                <div class="w3-center w3-row w3-padding w3-margin-bottom w3-margin-top">
+                    <div class="w3-button w3-cols w3-xlarge" id="newSessBtn" onclick="newSession()">New Session</div>
+                    <div class="w3-button w3-cols w3-xlarge" id="cloSessBtn" onclick="closeSession()">Close Session</div>
                 </div>
-                <div class="w3-center w3-row w3-padding">
-                        <div class="w3-button w3-cols" id="newPntBtn" onclick="newPoint()">Add Point</div>
-                    </div>
+                <div class="w3-center w3-row w3-padding w3-margin-top">
+                        <div class="w3-button w3-cols w3-xlarge" id="newPntBtn" onclick="newPoint()">Add Point</div>
+                </div>
             </div>
+        </div>
+        <div class="w3-center">
+            <div class="w3-bar foot w3-display-bottommiddle w3-padding">Developed by Team Mavericks</div>
         </div>
     </body>
 </html>
