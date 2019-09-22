@@ -11,7 +11,7 @@ def initApp():
 def closeApp():
     print("Init Terminate Process")
     import newdata
-    newdata.get_results()
+    newdata.get_result()
     import sys
     eel.terminate()
     sys.exit()
