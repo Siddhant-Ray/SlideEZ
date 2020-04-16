@@ -39,5 +39,11 @@ d) PPTx
 
 3. Run the application
 
-python mainApp.py
+* Run python mainApp.py from the CLI
+
+* Click on New Session
+
+* Click on Add Point and speak into the microphone
+
+* Voila! Study the logs and when the execution is over, open testppt3.pptx
 
