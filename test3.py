@@ -77,7 +77,7 @@ def fn(test):
     # set your Microsoft Cognitive Services API key along with (1) the
     # maximum number of results for a given search and (2) the group size
     # for results (maximum of 50 per request)
-    API_KEY = "948886a19a794c428c53fcfa2aa0325b"
+    API_KEY = "1539329da5c84f4aa90a8789509db5a9"
     MAX_RESULTS = 1
     GROUP_SIZE = 1
     
@@ -136,8 +136,7 @@ def fn(test):
     
                 # build the path to the output image
                 ext = v["contentUrl"][v["contentUrl"].rfind("."):]
-                p = os.path.sep.join([r"C:\Users\HP\Desktop\Projects\VIT Hack\SlideEZ-test", "{}{}".format(
-				str(total).zfill(8), ext)])
+                p = os.path.sep.join([r'C:\Users\HP\Desktop\Projects\VIT Hack\SlideEZ', "{}{}".format(str(total).zfill(8), ext)])
 
                 print("The answer is")
                 print(p)
