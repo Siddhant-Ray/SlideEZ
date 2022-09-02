@@ -1,6 +1,5 @@
 import textrazor
 
-textrazor.api_key = "043e170ef41a6d297a508581225bd493943f3a9f831345fb71f86d64"
 
 client = textrazor.TextRazor(extractors=["words", "relations"])
 client.set_do_cleanup_HTML(True)

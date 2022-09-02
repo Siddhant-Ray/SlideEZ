@@ -12,7 +12,6 @@ starttime=time.time();
 # set your Microsoft Cognitive Services API key along with (1) the
 # maximum number of results for a given search and (2) the group size
 # for results (maximum of 50 per request)
-API_KEY = "948886a19a794c428c53fcfa2aa0325b"
 MAX_RESULTS = 1
 GROUP_SIZE = 1
  
